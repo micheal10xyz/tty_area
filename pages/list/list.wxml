@@ -1,0 +1,79 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="{{title}}" back="{{true}}">
+</navigation-bar>
+
+<view class="page">
+
+  <!-- 搜索输入态 -->
+  <view wx:if="{{showSearch}}" class="search-area">
+    <view class="search-input">
+      <input placeholder="输入名称或关键词，如：开锁" placeholder-class="ph"
+             value="{{inputVal}}" confirm-type="search" bindinput="onKeywordInput" bindconfirm="onSearch" />
+      <text wx:if="{{inputVal}}" class="clear" bindtap="clearKeyword">×</text>
+    </view>
+    <button class="search-btn" hover-class="btn-press" bindtap="onSearch">搜索</button>
+  </view>
+
+  <!-- 分类胶囊（分类/全部模式） -->
+  <scroll-view wx:if="{{listType === 'all' || listType === 'category'}}" scroll-x class="chips"
+               enable-flex show-scrollbar="{{false}}">
+    <view class="chip {{categoryId === '' ? 'active' : ''}}"
+          data-id="" data-name="便民服务" bindtap="pickCategory">全部</view>
+    <view wx:for="{{categories}}" wx:key="_id"
+          class="chip {{categoryId === item._id ? 'active' : ''}}"
+          data-id="{{item._id}}" data-name="{{item.name}}" bindtap="pickCategory">{{item.name}}</view>
+  </scroll-view>
+
+  <!-- Loading -->
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+  </view>
+
+  <!-- 错误 -->
+  <view wx:elif="{{error}}" class="state-box">
+    <view class="state-icon">!</view>
+    <view class="state-title">加载失败</view>
+    <view class="state-desc">请检查网络后重试</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="retry">重新加载</button>
+  </view>
+
+  <!-- 待输入 -->
+  <view wx:elif="{{needInput}}" class="state-box">
+    <view class="state-icon">搜</view>
+    <view class="state-title">输入关键词开始搜索</view>
+    <view class="state-desc">支持名称、服务内容与标签</view>
+  </view>
+
+  <!-- 列表 -->
+  <block wx:else>
+    <view class="list" wx:if="{{list.length}}">
+      <view class="li-card" wx:for="{{list}}" wx:key="_id"
+            hover-class="press" data-id="{{item._id}}" bindtap="goDetail">
+        <view class="glyph {{item.type === 'hotline' ? 'blue' : ''}}">{{item.glyph}}</view>
+        <view class="li-main">
+          <view class="li-name">
+            {{item.name}}
+            <text wx:if="{{item.hot}}" class="li-tag">热</text>
+            <text wx:if="{{item.stale}}" class="li-tag gray">待复核</text>
+          </view>
+          <view class="li-sub">
+            {{item.categoryName || (item.type === 'hotline' ? '常用热线' : '便民服务')}} · {{item.zone}}
+          </view>
+          <view class="li-sub" wx:if="{{item.desc}}">{{item.desc}}</view>
+        </view>
+        <view class="dial {{item.type === 'hotline' ? 'blue' : ''}}" catchtap="dial"
+              data-id="{{item._id}}" data-name="{{item.name}}" data-phone="{{item.phone}}">拨</view>
+      </view>
+
+      <view wx:if="{{loadMore}}" class="foot-tip">加载中…</view>
+      <view wx:elif="{{!hasMore && list.length}}" class="foot-tip">— 没有更多了 —</view>
+    </view>
+
+    <!-- 空态 -->
+    <view wx:else class="state-box">
+      <view class="state-icon">空</view>
+      <view class="state-title">还没有收录相关服务</view>
+      <view class="state-desc">如果你知道可靠的本地服务，欢迎补充</view>
+      <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goSubmit">我要收录</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,77 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="{{formType === 'correct' ? '纠错' : '我要收录'}}" back="{{true}}">
+</navigation-bar>
+
+<view class="page submit">
+  <view class="tip-bar">
+    <text>{{formType === 'correct' ? '请填写更正后的最新信息，并选择问题原因。' : '推荐可靠的本地服务给邻居，核实后上线。'}}</text>
+  </view>
+
+  <view class="card form">
+    <view class="f-item">
+      <text class="f-label">名称<text class="req">*</text></text>
+      <input class="f-input" placeholder="如：张记开锁 / XX物业客服" placeholder-class="ph"
+             value="{{name}}" bindinput="onName" maxlength="30" />
+    </view>
+
+    <view class="f-item" wx:if="{{formType === 'add'}}">
+      <text class="f-label">分类<text class="req">*</text></text>
+      <picker mode="selector" range="{{categories}}" range-key="name" bindchange="onCategoryChange">
+        <view class="f-input picker {{categoryIndex < 0 ? 'ph' : ''}}">
+          {{categoryIndex < 0 ? '请选择分类' : categories[categoryIndex].name}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="f-item">
+      <text class="f-label">电话<text class="req">*</text></text>
+      <input class="f-input" type="number" placeholder="手机号或区号座机" placeholder-class="ph"
+             value="{{phone}}" bindinput="onPhone" maxlength="20" />
+    </view>
+
+    <view class="f-item">
+      <text class="f-label">组团</text>
+      <picker mode="selector" range="{{zones}}" bindchange="onZoneChange">
+        <view class="f-input picker">{{zones[zoneIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="f-item">
+      <text class="f-label">地址</text>
+      <input class="f-input" placeholder="选填，如：西二区3号院底商" placeholder-class="ph"
+             value="{{address}}" bindinput="onAddress" maxlength="60" />
+    </view>
+
+    <view class="f-item">
+      <text class="f-label">营业时间</text>
+      <input class="f-input" placeholder="选填，如：8:00-21:00" placeholder-class="ph"
+             value="{{hours}}" bindinput="onHours" maxlength="30" />
+    </view>
+
+    <view class="f-item">
+      <text class="f-label">服务描述</text>
+      <textarea class="f-textarea" placeholder="一句话介绍（200字内）" placeholder-class="ph"
+                value="{{desc}}" bindinput="onDesc" maxlength="200" auto-height></textarea>
+      <text class="f-count">{{descCount}}/200</text>
+    </view>
+  </view>
+
+  <!-- 纠错原因 -->
+  <view class="card" wx:if="{{formType === 'correct'}}">
+    <view class="f-label" style="margin-bottom:12rpx;">问题原因<text class="req">*</text></view>
+    <view wx:for="{{ISSUE_TYPES}}" wx:key="value"
+          class="issue {{issueIndex === index ? 'active' : ''}}"
+          data-index="{{index}}" bindtap="onIssueTap">
+      <view class="issue-dot"></view>
+      <text>{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="safe-space"></view>
+
+  <view class="footer-fixed">
+    <button class="btn {{submitting ? 'btn-disabled' : 'btn-primary'}}"
+            hover-class="btn-press" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '提交中…' : '提交'}}
+    </button>
+  </view>
+</view>

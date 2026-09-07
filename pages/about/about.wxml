@@ -1,0 +1,43 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="关于与公益声明" back="{{true}}">
+</navigation-bar>
+
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-logo">天</view>
+    <view class="hero-name">天通苑便民</view>
+    <view class="hero-ver">v{{version}} · 试点：天通苑西二区</view>
+  </view>
+
+  <view class="card">
+    <view class="block-title">这是什么</view>
+    <view class="block-text">
+      「天通苑便民」是居民自发维护的本地生活信息小程序，当前试点范围为天通苑西二区及邻近区域。提供生活常用热线与便民服务（维修、开锁、疏通、家政、搬家、回收、快递、干洗等）的公益查询。
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="block-title">公益声明</view>
+    <view class="block-text">
+      平台为公益性质，不收取任何费用，不介入任何交易，不构成对任何商户的推荐或担保。收录内容来源于公开渠道与邻居提交，均经人工核实后发布。
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="block-title">免责声明</view>
+    <view class="txt-line">1. 服务信息（包括电话、地址、营业状态等）可能发生变化，请拨打前自行核实；</view>
+    <view class="txt-line">2. 涉及上门服务、维修开锁等，请核验对方资质并注意人身财产安全，紧急情况请拨打 110/119/120；</view>
+    <view class="txt-line">3. 若某商户不愿在平台展示，可通过「纠错」告知，我们将在核实后尽快下线。</view>
+  </view>
+
+  <view class="card">
+    <view class="block-title">数据与隐私</view>
+    <view class="block-text">
+      我们仅在你提交收录/纠错/反馈时获取微信身份（openid）用于记录，不收集头像昵称、不读取通讯录；提交内容仅用于运营审核。如对内容有异议，请通过下方反馈通道联系。
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goSubmit">帮大家收录服务</button>
+    <button class="btn btn-outline btn-sm" hover-class="press" bindtap="goFeedback">意见反馈</button>
+  </view>
+</view>

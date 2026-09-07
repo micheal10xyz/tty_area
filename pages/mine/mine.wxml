@@ -1,0 +1,37 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="我的提交" back="{{true}}">
+</navigation-bar>
+
+<view class="page">
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+  </view>
+
+  <view wx:elif="{{error}}" class="state-box">
+    <view class="state-icon">!</view>
+    <view class="state-title">加载失败</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="list" wx:if="{{list.length}}">
+      <view class="rec" wx:for="{{list}}" wx:key="_id">
+        <view class="rec-head">
+          <view class="rec-type">{{item.typeText}}</view>
+          <view class="rec-status st-{{item.statusType}}">{{item.statusText}}</view>
+        </view>
+        <view class="rec-title">{{item.title}}</view>
+        <view class="rec-issue" wx:if="{{item.issueText}}">原因：{{item.issueText}}</view>
+        <view class="rec-note" wx:if="{{item.note}}">处理备注：{{item.note}}</view>
+        <view class="rec-time">{{item.dateText}}</view>
+      </view>
+      <view class="foot-tip">仅展示本人最近 50 条记录</view>
+    </view>
+
+    <view wx:else class="state-box">
+      <view class="state-icon">记</view>
+      <view class="state-title">还没有提交记录</view>
+      <view class="state-desc">推荐一个你常用的本地服务吧</view>
+      <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goSubmit">我要收录</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,241 @@
+/* ============ 全局设计变量（天通苑社区便民黄页） ============ */
+page {
+  /* 品牌色 */
+  --primary: #00A870;
+  --primary-dark: #00895A;
+  --brand-bg: #E6F7F0;
+  /* 常用热线蓝 */
+  --blue: #3B82F6;
+  --blue-bg: #EAF2FF;
+  /* 语义色 */
+  --orange: #FF9F0A;
+  --red: #FA5151;
+  /* 文本 */
+  --text: #1F2329;
+  --text2: #646A73;
+  --text3: #8F959E;
+  /* 背景与边框 */
+  --bg: #F6F7F9;
+  --card: #FFFFFF;
+  --line: #EBEDF0;
+
+  background: var(--bg);
+  color: var(--text);
+  font-size: 28rpx;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+view,
+text,
+scroll-view,
+input,
+textarea,
+button,
+image {
+  box-sizing: border-box;
+}
+
+button::after {
+  border: none;
+}
+
+/* 页面通用容器 */
+.page {
+  min-height: 100vh;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text);
+  padding: 8rpx 4rpx;
+}
+
+.section-title .more {
+  margin-left: auto;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: var(--text3);
+}
+
+/* 卡片 */
+.card {
+  background: var(--card);
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+/* 空态 / 错误态 */
+.state-box {
+  padding: 120rpx 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.state-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #EEF0F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52rpx;
+  font-weight: 600;
+  color: var(--text3);
+  margin-bottom: 24rpx;
+}
+.state-title {
+  font-size: 30rpx;
+  color: var(--text);
+  margin-bottom: 12rpx;
+}
+.state-desc {
+  font-size: 26rpx;
+  color: var(--text3);
+  margin-bottom: 32rpx;
+}
+
+/* 按钮 */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary.press {
+  background: var(--primary-dark);
+}
+.btn-outline {
+  background: #fff;
+  border: 2rpx solid var(--primary);
+  color: var(--primary);
+}
+.btn-plain {
+  background: var(--brand-bg);
+  color: var(--primary);
+}
+.btn-disabled {
+  opacity: 0.45;
+}
+.btn-sm {
+  height: 64rpx;
+  border-radius: 32rpx;
+  padding: 0 32rpx;
+  font-size: 26rpx;
+}
+
+/* 底部固定操作区 */
+.footer-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid var(--line);
+  display: flex;
+  gap: 16rpx;
+  z-index: 10;
+}
+.footer-fixed .flex-1 {
+  flex: 1;
+}
+
+/* 列表卡片通用 */
+.li-card {
+  display: flex;
+  align-items: center;
+  background: var(--card);
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+.glyph {
+  flex: none;
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 20rpx;
+  background: var(--brand-bg);
+  color: var(--primary);
+  font-size: 36rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+.glyph.blue {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+.li-main {
+  flex: 1;
+  min-width: 0;
+}
+.li-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.li-sub {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--text3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.li-tag {
+  display: inline-block;
+  padding: 2rpx 10rpx;
+  margin-left: 10rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  color: var(--orange);
+  background: #FFF4E0;
+}
+.li-tag.gray {
+  color: var(--text3);
+  background: #EFF1F3;
+}
+.li-tag.green {
+  color: var(--primary);
+  background: var(--brand-bg);
+}
+
+/* 拨号小按钮 */
+.dial {
+  flex: none;
+  margin-left: 16rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: var(--brand-bg);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+.dial.blue {
+  background: var(--blue-bg);
+  color: var(--blue);
+}

@@ -1,0 +1,35 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="意见反馈" back="{{true}}">
+</navigation-bar>
+
+<view class="page">
+  <view class="card">
+    <view class="f-label">反馈类型</view>
+    <view class="type-row">
+      <view wx:for="{{FEEDBACK_TYPES}}" wx:key="value"
+            class="type-chip {{typeIndex === index ? 'active' : ''}}"
+            data-index="{{index}}" bindtap="onTypeTap">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="f-label">反馈内容</view>
+    <textarea class="fb-textarea" placeholder="请描述遇到的问题或建议（500字内）"
+              placeholder-class="ph" value="{{content}}" bindinput="onContent" maxlength="500"></textarea>
+    <text class="f-count">{{contentCount}}/500</text>
+  </view>
+
+  <view class="card">
+    <view class="f-label">联系方式（选填）</view>
+    <input class="f-input" placeholder="微信/手机号，便于我们回复" placeholder-class="ph"
+           value="{{contact}}" bindinput="onContact" maxlength="40" />
+  </view>
+
+  <view class="safe-space"></view>
+
+  <view class="footer-fixed">
+    <button class="btn {{submitting ? 'btn-disabled' : 'btn-primary'}}"
+            hover-class="btn-press" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '提交中…' : '提交'}}
+    </button>
+  </view>
+</view>

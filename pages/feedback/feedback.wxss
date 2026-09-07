@@ -1,0 +1,52 @@
+.page {
+  padding: 20rpx 24rpx;
+}
+
+.f-label {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 18rpx;
+}
+
+.type-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.type-chip {
+  padding: 12rpx 28rpx;
+  border-radius: 32rpx;
+  background: #F2F3F5;
+  font-size: 26rpx;
+  color: var(--text2);
+  margin: 0 16rpx 16rpx 0;
+}
+.type-chip.active {
+  background: var(--brand-bg);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.fb-textarea {
+  width: 100%;
+  height: 220rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+.f-input {
+  height: 60rpx;
+  font-size: 28rpx;
+}
+.f-count {
+  display: block;
+  text-align: right;
+  font-size: 22rpx;
+  color: var(--text3);
+  margin-top: 6rpx;
+}
+.ph {
+  color: var(--text3);
+}
+
+.safe-space {
+  height: 140rpx;
+}

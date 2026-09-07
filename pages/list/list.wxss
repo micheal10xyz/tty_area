@@ -1,0 +1,77 @@
+.page {
+  padding-bottom: 40rpx;
+}
+
+/* 搜索输入 */
+.search-area {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background: #fff;
+}
+.search-input {
+  flex: 1;
+  height: 68rpx;
+  border-radius: 34rpx;
+  background: #F2F3F5;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+}
+.search-input input {
+  flex: 1;
+  font-size: 26rpx;
+}
+.ph {
+  color: var(--text3);
+}
+.clear {
+  padding: 0 6rpx;
+  font-size: 34rpx;
+  color: var(--text3);
+}
+.search-btn {
+  margin-left: 16rpx;
+  font-size: 26rpx;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 34rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  padding: 0 28rpx;
+}
+
+/* 分类胶囊 */
+.chips {
+  white-space: nowrap;
+  padding: 16rpx 12rpx;
+  background: #fff;
+  border-bottom: 1rpx solid var(--line);
+}
+.chip {
+  display: inline-block;
+  margin: 0 8rpx;
+  padding: 10rpx 28rpx;
+  border-radius: 30rpx;
+  background: #F2F3F5;
+  font-size: 26rpx;
+  color: var(--text2);
+}
+.chip.active {
+  background: var(--brand-bg);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.list {
+  padding: 20rpx 24rpx 0;
+}
+.foot-tip {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--text3);
+  padding: 24rpx 0 40rpx;
+}
+.press {
+  opacity: 0.85;
+}

@@ -1,0 +1,64 @@
+.page {
+  padding: 20rpx 24rpx;
+}
+
+.rec {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+.rec-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.rec-type {
+  font-size: 24rpx;
+  color: var(--primary);
+  background: var(--brand-bg);
+  border-radius: 8rpx;
+  padding: 2rpx 14rpx;
+}
+.rec-status {
+  margin-left: auto;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  padding: 2rpx 14rpx;
+}
+.st-pending {
+  color: var(--orange);
+  background: #FFF4E0;
+}
+.st-done {
+  color: var(--primary);
+  background: var(--brand-bg);
+}
+.st-rejected {
+  color: var(--red);
+  background: #FFEDED;
+}
+
+.rec-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--text);
+}
+.rec-issue,
+.rec-note {
+  font-size: 24rpx;
+  color: var(--text2);
+  margin-top: 6rpx;
+}
+.rec-time {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--text3);
+}
+
+.foot-tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--text3);
+  padding: 20rpx 0;
+}

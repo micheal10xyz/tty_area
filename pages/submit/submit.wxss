@@ -1,0 +1,91 @@
+.submit {
+  padding: 0 0 40rpx;
+}
+
+.tip-bar {
+  margin: 16rpx 24rpx;
+  font-size: 24rpx;
+  color: var(--text2);
+  background: #FFF8E8;
+  border-radius: 16rpx;
+  padding: 16rpx 24rpx;
+  line-height: 1.6;
+}
+
+.form {
+  margin: 0 24rpx 20rpx;
+}
+
+.f-item {
+  display: flex;
+  flex-direction: column;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+.f-item:last-child {
+  border-bottom: none;
+}
+.f-label {
+  font-size: 26rpx;
+  color: var(--text2);
+  margin-bottom: 10rpx;
+}
+.req {
+  color: var(--red);
+  margin-left: 4rpx;
+}
+.f-input {
+  height: 60rpx;
+  font-size: 28rpx;
+  color: var(--text);
+}
+.f-input.picker {
+  display: flex;
+  align-items: center;
+}
+.f-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  font-size: 28rpx;
+  color: var(--text);
+  line-height: 1.6;
+}
+.f-count {
+  align-self: flex-end;
+  font-size: 22rpx;
+  color: var(--text3);
+  margin-top: 6rpx;
+}
+.ph {
+  color: var(--text3);
+}
+
+/* 纠错原因 */
+.issue {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+  font-size: 28rpx;
+  color: var(--text2);
+}
+.issue.active {
+  color: var(--primary);
+  font-weight: 500;
+}
+.issue-dot {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  border: 3rpx solid #C9CDD2;
+  margin-right: 16rpx;
+  flex: none;
+}
+.issue.active .issue-dot {
+  border-color: var(--primary);
+  background: var(--primary);
+  box-shadow: inset 0 0 0 6rpx #fff;
+}
+
+.safe-space {
+  height: 140rpx;
+}

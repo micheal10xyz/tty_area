@@ -1,0 +1,87 @@
+<navigation-bar background="#FFFFFF" color="#1F2329" title="{{service ? service.name : '详情'}}" back="{{true}}">
+</navigation-bar>
+
+<view class="page detail">
+
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+  </view>
+
+  <view wx:elif="{{notFound}}" class="state-box">
+    <view class="state-icon">?</view>
+    <view class="state-title">信息不存在或已下线</view>
+    <view class="state-desc">该服务可能已被运营下线或删除</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goHome">回到首页</button>
+  </view>
+
+  <view wx:elif="{{error}}" class="state-box">
+    <view class="state-icon">!</view>
+    <view class="state-title">加载失败</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:elif="{{service}}">
+    <!-- 头部信息 -->
+    <view class="card hero">
+      <view class="hero-top">
+        <view class="glyph big {{service.type === 'hotline' ? 'blue' : ''}}">{{service.glyph}}</view>
+        <view class="hero-main">
+          <view class="li-name big-name">
+            {{service.name}}
+          </view>
+          <view class="hero-tags">
+            <text class="tag {{service.type === 'hotline' ? 'blue' : ''}}">{{service.type === 'hotline' ? '常用热线' : service.categoryName}}</text>
+            <text wx:if="{{service.hot}}" class="tag orange">热门</text>
+            <text wx:if="{{service.stale}}" class="tag gray">待复核</text>
+          </view>
+          <view class="hero-sub">{{service.zone}}</view>
+        </view>
+      </view>
+
+      <!-- 电话 -->
+      <view class="phone-row" bindtap="dial" bindlongpress="copyPhone" hover-class="press">
+        <view class="phone-icon">电</view>
+        <view class="phone-main">
+          <view class="phone-num">{{service.phone}}</view>
+          <view class="phone-tip">点击拨打 · 长按可复制</view>
+        </view>
+        <view class="dial-call">拨打</view>
+      </view>
+      <view class="hero-count" wx:if="{{service.callCount > 0}}">已被拨打 {{service.callCount}} 次</view>
+    </view>
+
+    <!-- 信息卡 -->
+    <view class="card info" wx:if="{{service.address || service.hours}}">
+      <view class="info-row" wx:if="{{service.address}}">
+        <text class="info-label">地址</text>
+        <text class="info-val">{{service.address}}</text>
+      </view>
+      <view class="info-row" wx:if="{{service.hours}}">
+        <text class="info-label">营业时间</text>
+        <text class="info-val">{{service.hours}}</text>
+      </view>
+    </view>
+
+    <!-- 服务描述 -->
+    <view class="card" wx:if="{{service.desc}}">
+      <view class="block-title">服务介绍</view>
+      <view class="block-text">{{service.desc}}</view>
+    </view>
+
+    <!-- 核实与公益声明 -->
+    <view class="card note">
+      <view class="note-line">信息核实时间：{{reviewedText || '—'}}</view>
+      <view class="note-line">
+        内容由平台公益整理，仅供邻里参考，不构成推荐与担保。请自行核实；若电话失效或商户不愿展示，可点击「纠错」告知我们。
+      </view>
+    </view>
+
+    <view class="bottom-space"></view>
+
+    <!-- 底部操作 -->
+    <view class="footer-fixed">
+      <button class="btn btn-outline flex-1" hover-class="press" bindtap="goCorrect">纠错</button>
+      <button class="btn btn-primary flex-2" hover-class="btn-press" bindtap="dial">拨打 {{service.phone}}</button>
+    </view>
+  </block>
+</view>
