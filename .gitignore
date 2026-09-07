@@ -1,0 +1,34 @@
+# 依赖
+node_modules/
+miniprogram_npm/
+
+# 云函数本地安装的依赖（部署走云端安装依赖，无需提交）
+cloudfunctions/**/node_modules/
+
+# 微信开发者工具本地配置
+project.private.config.json
+*.tmp
+
+# 环境变量（保留 .env.example 作为示例提交）
+.env
+.env.*
+!.env.example
+
+# 构建与测试产物
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# 日志
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 系统与 IDE
+.DS_Store
+Thumbs.db
+.idea/

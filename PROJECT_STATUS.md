@@ -6,7 +6,7 @@
 
 ## 当前阶段
 
-MVP 编码完成（本地可演示），待云开发联调与真实数据导入
+MVP 编码完成，数据源已切换为微信云开发（云函数 + 云数据库，无 mock），待部署云函数与真实数据核验
 
 ## 当前 Sprint
 
@@ -38,12 +38,14 @@ Sprint 02-07 · 编码（已完成）
 - [x] v0.1.2 底部 Tab 改为自定义组件（custom-tab-bar）：字体放大至 26rpx，绘制纯 CSS 形象图标（首页/公告/便民/我的）
 - [x] v0.1.3/v0.1.4 色调改为「雾蓝」：淡蓝页面底 + 低饱和蓝色按钮/图标 + 偏蓝冷墨文本，蓝调明显但依旧柔和
 - [x] v0.1.5 公告、便民服务暂不提供服务：两 Tab 改为统一的「敬请期待」空态（含首页公告卡片文案同步）
+- [x] v0.2.0 数据源切换为微信云函数：删除 utils/mock 演示数据层与云端回退逻辑，前端只经云函数 api 访问云数据库；云函数种子（seed.js）补齐分类/常用热线/便民服务，`init.bootstrap` 首次自动导入（管理员名单配置前允许执行，避免引导死锁）
+- [x] v0.2.1 云函数联调增强：`init.bootstrap` 内置幂等建集合（categories/services/submissions/feedbacks/adminConfig），首次运行无需手动建集合；本地校验种子分类引用/占位号码唯一性通过
 
 ## 进行中
 
 - [ ] 开发者工具内预览 v0.1.1（四 Tab 全流程：首页/公告/便民/我的 + 拨打）
 - [ ] 设计文档同步 v0.1.1（PRD / USER_FLOW / UI_DESIGN / API 收录相关章节修订）
-- [ ] 云开发联调（部署云函数 → init.bootstrap → 导入真实数据）
+- [ ] 云开发部署与联调（部署云函数 → init.bootstrap → 真实号码替换核验）
 
 ## 待开发
 
@@ -55,7 +57,7 @@ Sprint 02-07 · 编码（已完成）
 
 - 个人主体小程序类目与「商户名录」边界需在小程序后台核验（高风险项，前置处理）
 - 小程序 ICP 备案需同步准备
-- 演示数据（utils/mock.js）中的电话号码均为占位示例，严禁带入正式数据
+- 云端种子数据（cloudfunctions/api/seed.js）中的电话号码均为占位示例，严禁带入正式数据
 - 设计文档（PRD / USER_FLOW / UI_DESIGN / API）仍含收录/纠错旧章节，待随 v0.1.1 同步修订
 
 ## 技术债务
@@ -66,8 +68,8 @@ Sprint 02-07 · 编码（已完成）
 
 ## 下一步
 
-1. 微信开发者工具导入项目预览（自动进入演示数据模式）
-2. 开通云开发并部署 `cloudfunctions/api`
-3. 运行 `init.bootstrap` 初始化分类与 adminConfig
-4. 将运营 openid 写入 adminConfig.admins
-5. 通过 `admin.batchImport` 导入真实数据 → 关闭演示回退（utils/config.js allowMock=false）联调
+1. 微信开发者工具导入项目（基础库 ≥ 2.2.3，确保 AppID 已开通云开发）
+2. 开通云开发并部署 `cloudfunctions/api`（右键「上传并部署：云端安装依赖」）
+3. 在云开发控制台/工具内调用 `api` 函数一次 `action=init.bootstrap`，自动导入分类、常用热线与便民服务
+4. 在云数据库 `adminConfig/admins.admins` 填入运营者 openid（此后引导与管理接口仅管理员可用）
+5. 在云数据库 services/categories 中把占位号码替换为核实后的真实电话后即可联调/上线

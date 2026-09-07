@@ -1,42 +1,33 @@
 /**
- * 云函数调用适配层
- * 优先走云函数 api；未开通云开发/函数未部署时按配置回退演示数据（mock）
+ * 云函数调用适配层（仅走微信云函数 api，不再提供 mock 数据）
+ * 所有业务数据统一由云函数 cloudfunctions/api 从云数据库读取。
  */
 const CONFIG = require('./config')
-const mock = require('./mock')
 
 let cloudReady = false
 let inited = false
-let usingMock = false
+let initMessage = ''
 
 function init() {
   if (inited) return
   inited = true
   try {
-    if (wx.cloud) {
-      wx.cloud.init({ env: CONFIG.cloudEnv || undefined, traceUser: true })
-      cloudReady = true
-      console.log('[tty] 云开发初始化完成')
-    } else {
-      console.warn('[tty] 当前基础库不支持云开发')
+    if (!wx.cloud) {
+      initMessage = '当前基础库不支持云开发，请升级微信后重试'
+      console.warn('[tty] 基础库不支持 wx.cloud')
+      return
     }
+    wx.cloud.init({ env: CONFIG.cloudEnv || undefined, traceUser: true })
+    cloudReady = true
+    console.log('[tty] 云开发初始化完成')
   } catch (e) {
+    initMessage = '云开发初始化失败：' + (e && e.message ? e.message : e)
     console.warn('[tty] 云开发初始化失败：', e)
   }
 }
 
 function getMode() {
-  if (usingMock) return 'demo'
-  if (!cloudReady) return 'pending'
-  return 'cloud'
-}
-
-function isEnvError(err) {
-  const msg = String((err && (err.errMsg || err.message)) || '')
-  const code = String((err && err.errCode) || '')
-  const pattern = /(env|environment|环境|cloud|云开发|function|函数)/i
-  const failWord = /(not\s*(found|exist)|不存在|未开通|未初始化|fail)/i
-  return pattern.test(msg + code) && failWord.test(msg + code)
+  return cloudReady ? 'cloud' : 'pending'
 }
 
 function normalize(res) {
@@ -49,25 +40,27 @@ function normalize(res) {
   return res
 }
 
+/** 把云调用错误翻译成可读提示，便于排障 */
+function hint(err) {
+  const msg = String((err && (err.errMsg || err.message)) || '')
+  if (/env|环境/i.test(msg)) return '云开发未开通或环境配置有误，请在开发者工具开通云开发'
+  if (/FunctionName|函数|function|is not found|not found/i.test(msg)) return '云函数未部署，请先部署 cloudfunctions/api'
+  return '服务繁忙，请稍后重试'
+}
+
 function call(action, data) {
-  if (!cloudReady || CONFIG.allowMock && usingMock) {
-    return mock.handle(action, data)
+  if (!cloudReady) {
+    return Promise.resolve({ code: 50000, message: initMessage || '云开发未就绪' })
   }
   return new Promise(resolve => {
     wx.cloud.callFunction({
       name: 'api',
       data: Object.assign({ action }, data || {})
     }).then(res => {
-      usingMock = false
       resolve(normalize(res.result))
     }).catch(err => {
       console.warn('[tty] 云函数调用失败 action=' + action, err)
-      if (CONFIG.allowMock && isEnvError(err)) {
-        usingMock = true
-        resolve(mock.handle(action, data))
-      } else {
-        resolve({ code: 50000, message: '服务繁忙，请稍后重试' })
-      }
+      resolve({ code: 50000, message: hint(err) })
     })
   })
 }
