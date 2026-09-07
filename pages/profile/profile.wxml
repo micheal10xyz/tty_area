@@ -1,4 +1,4 @@
-<navigation-bar background="#FFFFFF" color="#1F2329" title="我的" back="{{true}}">
+<navigation-bar background="#FFFFFF" color="#36485C" title="我的" back="{{false}}">
 </navigation-bar>
 
 <view class="page">
@@ -11,11 +11,6 @@
   </view>
 
   <view class="card menu">
-    <view class="menu-item" hover-class="press" bindtap="goMine">
-      <view class="menu-icon">记</view>
-      <text class="menu-text">我的提交</text>
-      <text class="menu-arrow">›</text>
-    </view>
     <view class="menu-item" hover-class="press" bindtap="goFeedback">
       <view class="menu-icon blue">馈</view>
       <text class="menu-text">意见反馈</text>
@@ -29,13 +24,11 @@
   </view>
 
   <view class="card note">
-    <view class="note-line">平台不介入交易、不收取任何费用。</view>
-    <view class="note-line">收录内容均经人工核实，信息如有出入请使用「纠错」反馈。</view>
+    <view class="note-line">平台为公益整理，不介入交易、不收取任何费用。</view>
+    <view class="note-line">服务信息可能发生变化，请拨打前自行核实；内容如有出入，可通过「意见反馈」告知我们。</view>
   </view>
 
   <view class="meta">
     <text>天通苑便民 v{{version}}</text>
   </view>
-
-  <view class="home-link" bindtap="goHome">返回首页</view>
 </view>

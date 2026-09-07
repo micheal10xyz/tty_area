@@ -1,4 +1,4 @@
-<navigation-bar background="#FFFFFF" color="#1F2329" title="意见反馈" back="{{true}}">
+<navigation-bar background="#FFFFFF" color="#36485C" title="意见反馈" back="{{true}}">
 </navigation-bar>
 
 <view class="page">

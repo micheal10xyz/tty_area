@@ -1,4 +1,4 @@
-<navigation-bar background="#FFFFFF" color="#1F2329" title="{{service ? service.name : '详情'}}" back="{{true}}">
+<navigation-bar background="#FFFFFF" color="#36485C" title="{{service ? service.name : '详情'}}" back="{{true}}">
 </navigation-bar>
 
 <view class="page detail">
@@ -72,7 +72,7 @@
     <view class="card note">
       <view class="note-line">信息核实时间：{{reviewedText || '—'}}</view>
       <view class="note-line">
-        内容由平台公益整理，仅供邻里参考，不构成推荐与担保。请自行核实；若电话失效或商户不愿展示，可点击「纠错」告知我们。
+        内容由平台公益整理，仅供邻里参考，不构成推荐与担保。请拨打前自行核实；若信息有误，可通过「我的-意见反馈」告知我们。
       </view>
     </view>
 
@@ -80,8 +80,7 @@
 
     <!-- 底部操作 -->
     <view class="footer-fixed">
-      <button class="btn btn-outline flex-1" hover-class="press" bindtap="goCorrect">纠错</button>
-      <button class="btn btn-primary flex-2" hover-class="btn-press" bindtap="dial">拨打 {{service.phone}}</button>
+      <button class="btn btn-primary flex-1" hover-class="btn-press" bindtap="dial">拨打 {{service.phone}}</button>
     </view>
   </block>
 </view>

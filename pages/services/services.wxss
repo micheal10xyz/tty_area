@@ -1,0 +1,7 @@
+.services {
+  padding: 0 24rpx calc(160rpx + env(safe-area-inset-bottom));
+}
+
+.services .state-box {
+  padding-top: 220rpx;
+}

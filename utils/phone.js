@@ -14,7 +14,7 @@ function confirmCall(service) {
     title: '拨打电话',
     content,
     confirmText: '拨打',
-    confirmColor: '#00A870',
+    confirmColor: '#35689C',
     success(res) {
       if (!res.confirm) return
       if (service._id) {

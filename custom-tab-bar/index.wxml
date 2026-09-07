@@ -1,0 +1,35 @@
+<view class="tab-bar">
+  <view class="tab-item {{selected === index ? 'on' : ''}}" wx:for="{{list}}" wx:key="pagePath"
+        data-index="{{index}}" bindtap="onTab">
+    <view class="tab-ic">
+      <block wx:if="{{item.icon === 'home'}}">
+        <view class="i-home">
+          <view class="h-roof"></view>
+          <view class="h-body"></view>
+        </view>
+      </block>
+      <block wx:elif="{{item.icon === 'notice'}}">
+        <view class="i-notice">
+          <view class="n-knob"></view>
+          <view class="n-dome"></view>
+          <view class="n-clap"></view>
+        </view>
+      </block>
+      <block wx:elif="{{item.icon === 'services'}}">
+        <view class="i-services">
+          <view class="s-dot s1"></view>
+          <view class="s-dot s2"></view>
+          <view class="s-dot s3"></view>
+          <view class="s-dot s4"></view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="i-mine">
+          <view class="m-head"></view>
+          <view class="m-shoulder"></view>
+        </view>
+      </block>
+    </view>
+    <text class="tab-text">{{item.text}}</text>
+  </view>
+</view>

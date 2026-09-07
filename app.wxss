@@ -1,23 +1,23 @@
 /* ============ 全局设计变量（天通苑社区便民黄页） ============ */
 page {
-  /* 品牌色 */
-  --primary: #00A870;
-  --primary-dark: #00895A;
-  --brand-bg: #E6F7F0;
-  /* 常用热线蓝 */
-  --blue: #3B82F6;
-  --blue-bg: #EAF2FF;
-  /* 语义色 */
-  --orange: #FF9F0A;
-  --red: #FA5151;
-  /* 文本 */
-  --text: #1F2329;
-  --text2: #646A73;
-  --text3: #8F959E;
+  /* 品牌色（v0.1.4 雾蓝：低饱和柔和，蓝调更明显） */
+  --primary: #3A6896;
+  --primary-dark: #2B5280;
+  --brand-bg: #E4ECF7;
+  /* 次强调 */
+  --blue: #2F5E8F;
+  --blue-bg: #DBE7F5;
+  /* 语义色（低饱和柔色，仅作提示） */
+  --orange: #AE7B4F;
+  --red: #C15548;
+  /* 文本（冷墨偏蓝） */
+  --text: #36485C;
+  --text2: #5D7086;
+  --text3: #94A8BE;
   /* 背景与边框 */
-  --bg: #F6F7F9;
+  --bg: #EFF4FB;
   --card: #FFFFFF;
-  --line: #EBEDF0;
+  --line: #D7E2F1;
 
   background: var(--bg);
   color: var(--text);
@@ -82,7 +82,7 @@ button::after {
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  background: #EEF0F3;
+  background: #E4ECF7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,11 +210,11 @@ button::after {
   border-radius: 8rpx;
   font-size: 20rpx;
   color: var(--orange);
-  background: #FFF4E0;
+  background: #E4ECF7;
 }
 .li-tag.gray {
   color: var(--text3);
-  background: #EFF1F3;
+  background: #E4ECF7;
 }
 .li-tag.green {
   color: var(--primary);

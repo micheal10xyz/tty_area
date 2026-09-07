@@ -1,18 +1,31 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/notice/notice",
+    "pages/services/services",
     "pages/list/list",
     "pages/detail/detail",
-    "pages/submit/submit",
     "pages/profile/profile",
-    "pages/mine/mine",
     "pages/feedback/feedback",
     "pages/about/about"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom",
-    "backgroundColor": "#F6F7F9"
+    "backgroundColor": "#EFF4FB"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9FB7CE",
+    "selectedColor": "#35689C",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/notice/notice", "text": "公告" },
+      { "pagePath": "pages/services/services", "text": "便民" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
   },
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar"

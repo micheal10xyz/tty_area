@@ -46,11 +46,11 @@
 }
 .tag.orange {
   color: var(--orange);
-  background: #FFF4E0;
+  background: #E4ECF7;
 }
 .tag.gray {
   color: var(--text3);
-  background: #EFF1F3;
+  background: #E4ECF7;
 }
 .hero-sub {
   margin-top: 8rpx;

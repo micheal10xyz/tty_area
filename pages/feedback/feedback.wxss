@@ -15,7 +15,7 @@
 .type-chip {
   padding: 12rpx 28rpx;
   border-radius: 32rpx;
-  background: #F2F3F5;
+  background: #E6EDF8;
   font-size: 26rpx;
   color: var(--text2);
   margin: 0 16rpx 16rpx 0;

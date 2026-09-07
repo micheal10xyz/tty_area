@@ -1,4 +1,4 @@
-<navigation-bar background="#FFFFFF" color="#1F2329" title="{{title}}" back="{{true}}">
+<navigation-bar background="#FFFFFF" color="#36485C" title="{{title}}" back="{{true}}">
 </navigation-bar>
 
 <view class="page">
@@ -71,9 +71,8 @@
     <!-- 空态 -->
     <view wx:else class="state-box">
       <view class="state-icon">空</view>
-      <view class="state-title">还没有收录相关服务</view>
-      <view class="state-desc">如果你知道可靠的本地服务，欢迎补充</view>
-      <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goSubmit">我要收录</button>
+      <view class="state-title">没有找到相关服务</view>
+      <view class="state-desc">换个关键词或分类再试试</view>
     </view>
   </block>
 </view>

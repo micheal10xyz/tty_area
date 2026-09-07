@@ -1,0 +1,141 @@
+.tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: stretch;
+  background: #FFFFFF;
+  border-top: 1rpx solid #D7E2F1;
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 999;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14rpx 0 12rpx;
+  --ic: #9FB7CE;
+}
+.tab-item.on {
+  --ic: #35689C;
+}
+
+/* 图标画布 */
+.tab-ic {
+  position: relative;
+  width: 46rpx;
+  height: 46rpx;
+}
+.tab-ic view {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+/* 首页：屋顶 + 房身 */
+.i-home {
+  width: 46rpx;
+  height: 46rpx;
+}
+.h-roof {
+  left: 11rpx;
+  top: 1rpx;
+  width: 0;
+  height: 0;
+  border-left: 12rpx solid transparent;
+  border-right: 12rpx solid transparent;
+  border-bottom: 15rpx solid var(--ic);
+}
+.h-body {
+  left: 12rpx;
+  top: 16rpx;
+  width: 22rpx;
+  height: 21rpx;
+  border: 3rpx solid var(--ic);
+  border-top: none;
+}
+
+/* 公告：铃铛 */
+.i-notice {
+  width: 46rpx;
+  height: 46rpx;
+}
+.n-knob {
+  left: 20rpx;
+  top: 1rpx;
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: var(--ic);
+}
+.n-dome {
+  left: 11rpx;
+  top: 6rpx;
+  width: 24rpx;
+  height: 25rpx;
+  border: 3rpx solid var(--ic);
+  border-bottom: none;
+  border-radius: 15rpx 15rpx 4rpx 4rpx;
+}
+.n-clap {
+  left: 19rpx;
+  top: 33rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 4rpx;
+  background: var(--ic);
+}
+
+/* 便民：服务宫格 */
+.i-services {
+  width: 46rpx;
+  height: 46rpx;
+}
+.s-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 4rpx;
+  background: var(--ic);
+}
+.s-dot.s1 { left: 5rpx; top: 6rpx; }
+.s-dot.s2 { left: 27rpx; top: 6rpx; }
+.s-dot.s3 { left: 5rpx; top: 27rpx; }
+.s-dot.s4 { left: 27rpx; top: 27rpx; }
+
+/* 我的：人形 */
+.i-mine {
+  width: 46rpx;
+  height: 46rpx;
+}
+.m-head {
+  left: 15rpx;
+  top: 2rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border: 3rpx solid var(--ic);
+  border-radius: 50%;
+}
+.m-shoulder {
+  left: 9rpx;
+  top: 23rpx;
+  width: 28rpx;
+  height: 17rpx;
+  border: 3rpx solid var(--ic);
+  border-bottom: none;
+  border-radius: 14rpx 14rpx 0 0;
+}
+
+/* 文字（放大） */
+.tab-text {
+  margin-top: 4rpx;
+  font-size: 26rpx;
+  color: #9FB7CE;
+  line-height: 1.2;
+}
+.tab-item.on .tab-text {
+  color: #35689C;
+  font-weight: 600;
+}

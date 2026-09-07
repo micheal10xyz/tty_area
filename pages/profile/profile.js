@@ -5,8 +5,14 @@ Page({
     version: CONFIG.version
   },
 
-  goMine() {
-    wx.navigateTo({ url: '/pages/mine/mine' })
+  onShow() {
+    this.syncTab()
+  },
+
+  syncTab() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 3 })
+    }
   },
 
   goFeedback() {
@@ -15,10 +21,6 @@ Page({
 
   goAbout() {
     wx.navigateTo({ url: '/pages/about/about' })
-  },
-
-  goHome() {
-    wx.reLaunch({ url: '/pages/home/home' })
   },
 
   onShareAppMessage() {

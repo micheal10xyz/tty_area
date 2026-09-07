@@ -1,0 +1,10 @@
+<navigation-bar background="#FFFFFF" color="#36485C" title="公告" back="{{false}}">
+</navigation-bar>
+
+<view class="page notice">
+  <view class="state-box">
+    <view class="state-icon">告</view>
+    <view class="state-title">敬请期待</view>
+    <view class="state-desc">社区公告正在筹备中，后续将发布停水停电、社区活动等通知</view>
+  </view>
+</view>

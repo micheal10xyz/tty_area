@@ -8,13 +8,24 @@ Page({
     mode: '',
     loading: true,
     error: false,
-    hotlines: [],
-    categories: [],
-    recs: []
+    hotlines: []
   },
 
   onLoad() {
     this.load()
+  },
+
+  onShow() {
+    // 从其它 Tab 切回时静默刷新，避免公告/热线过期
+    if (this._shown) this.load(true)
+    this._shown = true
+    this.syncTab()
+  },
+
+  syncTab() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 })
+    }
   },
 
   onPullDownRefresh() {
@@ -22,22 +33,17 @@ Page({
   },
 
   load(isRefresh) {
-    this.setData({ loading: true, error: false })
-    Promise.all([
-      request.call('categories.list', {}),
-      request.call('service.list', { type: 'all', page: 1, pageSize: 5 })
-    ]).then(results => {
-      const catRes = results[0]
-      const listRes = results[1]
-      if (catRes.code !== 0 || listRes.code !== 0) {
-        throw new Error('加载失败')
+    request.call('categories.list', {}).then(res => {
+      if (res.code !== 0) {
+        this.setData({ loading: false, error: true })
+        if (isRefresh) wx.stopPullDownRefresh()
+        return
       }
       this.setData({
         loading: false,
+        error: false,
         mode: request.getMode(),
-        hotlines: catRes.data.hotlines || [],
-        categories: catRes.data.categories || [],
-        recs: listRes.data.list || []
+        hotlines: res.data.hotlines || []
       })
       if (isRefresh) wx.stopPullDownRefresh()
     }).catch(() => {
@@ -52,37 +58,27 @@ Page({
 
   /* ---------- 跳转 ---------- */
   goSearch() {
-    wx.navigateTo({ url: '/pages/list/list?type=search' })
-  },
-
-  goCategory(e) {
-    const { id, name } = e.currentTarget.dataset
-    wx.navigateTo({ url: '/pages/list/list?type=category&categoryId=' + id + '&title=' + encodeURIComponent(name) })
+    wx.navigateTo({ url: '/pages/list/list?type=search&title=' + encodeURIComponent('搜索服务') })
   },
 
   goAllHotline() {
     wx.navigateTo({ url: '/pages/list/list?type=hotline&title=' + encodeURIComponent('常用热线') })
   },
 
-  goAllService() {
-    wx.navigateTo({ url: '/pages/list/list?type=all&title=' + encodeURIComponent('便民服务') })
-  },
-
-  goDetail(e) {
-    wx.navigateTo({ url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id })
-  },
-
-  goProfile() {
-    wx.navigateTo({ url: '/pages/profile/profile' })
-  },
-
-  goSubmit() {
-    wx.navigateTo({ url: '/pages/submit/submit?type=add' })
+  goNotice() {
+    wx.switchTab({ url: '/pages/notice/notice' })
   },
 
   /* ---------- 拨打 ---------- */
   dialHotline(e) {
     const { id, name, phone: p } = e.currentTarget.dataset
     phone.confirmCall({ _id: id, name, phone: p })
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '天通苑便民 · 常用电话一键查',
+      path: '/pages/home/home'
+    }
   }
 })

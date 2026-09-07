@@ -1,15 +1,11 @@
-<navigation-bar background="#FFFFFF" color="#1F2329" title="" back="{{false}}">
-  <view slot="center" style="font-size:34rpx;font-weight:600;color:#1F2329;">天通苑便民</view>
-  <view slot="right">
-    <view class="nav-op" bindtap="goProfile">我的</view>
-  </view>
+<navigation-bar background="#FFFFFF" color="#36485C" title="" back="{{false}}">
+  <view slot="center" style="font-size:34rpx;font-weight:600;color:#36485C;">天通苑便民</view>
 </navigation-bar>
 
 <view class="page home">
 
   <block wx:if="{{loading}}">
     <view class="home-loading">
-      <view class="skeleton"></view>
       <view class="skeleton"></view>
       <view class="skeleton"></view>
     </view>
@@ -47,59 +43,22 @@
       <view class="hot-grid">
         <view wx:for="{{hotlines}}" wx:key="_id" class="hot-item" hover-class="press"
               data-id="{{item._id}}" data-name="{{item.name}}" data-phone="{{item.phone}}" bindtap="dialHotline">
-          <view class="hot-avatar blue">{{item.glyph}}</view>
+          <view class="hot-avatar">{{item.glyph}}</view>
           <text class="hot-name">{{item.name}}</text>
         </view>
       </view>
     </view>
 
-    <!-- 便民分类 -->
-    <view class="card">
-      <view class="sec-head">
-        <text class="sec-title">便民服务</text>
-        <text class="sec-more" bindtap="goAllService">全部</text>
-      </view>
-      <view class="cat-grid">
-        <view wx:for="{{categories}}" wx:key="_id" class="cat-item" hover-class="press"
-              data-id="{{item._id}}" data-name="{{item.name}}" bindtap="goCategory">
-          <view class="cat-avatar">{{item.glyph}}</view>
-          <text class="cat-name">{{item.name}}</text>
+    <!-- 公告速递 -->
+    <view class="card notice-card" hover-class="press" bindtap="goNotice">
+      <view class="notice-left">
+        <view class="notice-icon">告</view>
+        <view class="notice-main">
+          <view class="notice-title">公告速递 · 敬请期待</view>
+          <view class="notice-desc">停水停电、物业与社区活动等通知将在此发布</view>
         </view>
       </view>
-    </view>
-
-    <!-- 推荐服务 -->
-    <view class="sec">
-      <view class="sec-head">
-        <text class="sec-title">推荐服务</text>
-        <text class="sec-more" bindtap="goAllService">更多</text>
-      </view>
-      <view class="li-card" wx:for="{{recs}}" wx:key="_id"
-            hover-class="press" data-id="{{item._id}}" bindtap="goDetail">
-        <view class="glyph {{item.type === 'hotline' ? 'blue' : ''}}">{{item.glyph}}</view>
-        <view class="li-main">
-          <view class="li-name">
-            {{item.name}}
-            <text wx:if="{{item.hot}}" class="li-tag">热</text>
-            <text wx:if="{{item.stale}}" class="li-tag gray">待复核</text>
-          </view>
-          <view class="li-sub">{{item.categoryName || '便民服务'}} · {{item.zone}}</view>
-          <view class="li-desc">{{item.desc}}</view>
-        </view>
-        <view class="dial" catchtap="dialHotline"
-              data-id="{{item._id}}" data-name="{{item.name}}" data-phone="{{item.phone}}">拨</view>
-      </view>
-
-      <view wx:if="{{!recs.length}}" class="state-box mini">
-        <view class="state-title">暂无服务收录</view>
-        <view class="state-desc">帮大家补充第一个本地服务</view>
-        <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="goSubmit">我要收录</button>
-      </view>
+      <view class="notice-arrow">›</view>
     </view>
   </block>
-
-  <!-- 底部收录入口 -->
-  <view class="footer-fixed">
-    <button class="btn btn-primary" hover-class="btn-press" bindtap="goSubmit">＋ 我要收录 / 纠错</button>
-  </view>
 </view>

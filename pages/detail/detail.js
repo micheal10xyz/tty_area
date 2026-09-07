@@ -54,15 +54,6 @@ Page({
     if (service) phone.copyPhone(service.phone)
   },
 
-  goCorrect() {
-    const s = this.data.service
-    if (!s) return
-    const name = encodeURIComponent(s.name)
-    wx.navigateTo({
-      url: '/pages/submit/submit?type=correct&serviceId=' + s._id + '&name=' + name
-    })
-  },
-
   goHome() {
     wx.reLaunch({ url: '/pages/home/home' })
   },

@@ -1,11 +1,11 @@
 .page {
-  padding: 24rpx;
+  padding: 24rpx 24rpx calc(160rpx + env(safe-area-inset-bottom));
 }
 
 .head-card {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #00A870, #12C98C);
+  background: linear-gradient(135deg, #3D72A3, #2C4A76);
   border-radius: 28rpx;
   padding: 40rpx 32rpx;
   margin-bottom: 20rpx;
@@ -66,7 +66,7 @@
   color: var(--blue);
 }
 .menu-icon.gray {
-  background: #EFF1F3;
+  background: #E4ECF7;
   color: var(--text2);
 }
 .menu-text {
@@ -76,11 +76,11 @@
 }
 .menu-arrow {
   font-size: 40rpx;
-  color: #C9CDD2;
+  color: #8FA6BF;
 }
 
 .note {
-  background: #FFF8E8;
+  background: #E6EDF8;
 }
 .note-line {
   font-size: 24rpx;

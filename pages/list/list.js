@@ -133,10 +133,6 @@ Page({
     wx.navigateTo({ url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id })
   },
 
-  goSubmit() {
-    wx.navigateTo({ url: '/pages/submit/submit?type=add' })
-  },
-
   retry() {
     this.reload()
   },

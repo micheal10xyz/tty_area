@@ -1,0 +1,10 @@
+<navigation-bar background="#FFFFFF" color="#36485C" title="便民服务" back="{{false}}">
+</navigation-bar>
+
+<view class="page services">
+  <view class="state-box">
+    <view class="state-icon">服</view>
+    <view class="state-title">敬请期待</view>
+    <view class="state-desc">便民服务正在筹备中，感谢关注</view>
+  </view>
+</view>

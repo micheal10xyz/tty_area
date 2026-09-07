@@ -108,7 +108,7 @@ const HOT_ITEMS = HOTLINES.map(h => decorate(Object.assign({}, h, {
 
 let SERVICES = buildServices()
 
-/* ---------- 提交记录存储（仅模拟） ---------- */
+/* ---------- 反馈记录存储（仅模拟） ---------- */
 function readStore(key) {
   try { return wx.getStorageSync(key) || [] } catch (e) { return [] }
 }
@@ -183,29 +183,6 @@ async function handle(action, data) {
       if (!item) return fail(40401, '内容不存在或已下线')
       item.callCount = (item.callCount || 0) + 1
       return ok({ callCount: item.callCount })
-    }
-
-    case 'submit.create': {
-      const store = readStore('tty_submissions')
-      const rec = {
-        _id: 'mock_sub_' + Date.now(),
-        type: p.type === 'correct' ? 'correct' : 'add',
-        targetServiceId: p.targetServiceId || '',
-        issueType: p.issueType || '',
-        payload: p.payload || {},
-        auditStatus: 'pending',
-        note: '',
-        openid: 'demo-user',
-        createAt: Date.now()
-      }
-      store.unshift(rec)
-      writeStore('tty_submissions', store)
-      return ok({ submitId: rec._id, auditStatus: rec.auditStatus })
-    }
-
-    case 'submit.mine': {
-      const store = readStore('tty_submissions').filter(i => i.openid === 'demo-user')
-      return ok({ list: store.slice(0, 50) })
     }
 
     case 'feedback.create': {

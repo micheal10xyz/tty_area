@@ -1,0 +1,7 @@
+.notice {
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+}
+
+.notice .state-box {
+  padding-top: 220rpx;
+}

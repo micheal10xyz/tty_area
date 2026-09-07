@@ -1,12 +1,5 @@
 .home {
-  padding-bottom: 140rpx;
-}
-
-.nav-op {
-  font-size: 28rpx;
-  color: var(--primary);
-  padding: 0 8rpx;
-  line-height: 1;
+  padding: 0 0 calc(160rpx + env(safe-area-inset-bottom));
 }
 
 /* 骨架 */
@@ -16,7 +9,7 @@
 .skeleton {
   height: 160rpx;
   border-radius: 24rpx;
-  background: #EEF0F3;
+  background: #E4ECF7;
   margin-bottom: 20rpx;
   animation: pulse 1.2s ease-in-out infinite;
 }
@@ -57,7 +50,7 @@
   margin: 20rpx 24rpx 24rpx;
   height: 76rpx;
   border-radius: 38rpx;
-  background: #F2F3F5;
+  background: #E6EDF8;
   display: flex;
   align-items: center;
   padding: 0 28rpx;
@@ -104,6 +97,12 @@
   font-weight: 600;
   color: var(--blue);
 }
+.sec-more {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: var(--blue);
+  opacity: 0.75;
+}
 .hot-grid {
   display: flex;
   flex-wrap: wrap;
@@ -128,7 +127,6 @@
   font-weight: 600;
   margin-bottom: 10rpx;
 }
-.hot-avatar.blue { background: var(--blue); }
 .hot-name {
   font-size: 22rpx;
   color: var(--text2);
@@ -139,64 +137,57 @@
   text-overflow: ellipsis;
 }
 
-/* 分区 */
-.sec {
+/* 公告速递 */
+.notice-card {
   margin: 0 24rpx;
-}
-.sec-head {
   display: flex;
   align-items: center;
-  padding: 12rpx 4rpx;
 }
-.sec-title {
-  font-size: 32rpx;
+.notice-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.notice-icon {
+  flex: none;
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 20rpx;
+  background: #E4ECF7;
+  color: var(--orange);
+  font-size: 34rpx;
   font-weight: 600;
-}
-.sec-more {
-  margin-left: auto;
-  font-size: 24rpx;
-  color: var(--text3);
-}
-
-/* 分类宫格 */
-.cat-grid {
-  display: flex;
-  flex-wrap: wrap;
-  padding-top: 8rpx;
-}
-.cat-item {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16rpx 0;
-}
-.cat-avatar {
-  width: 92rpx;
-  height: 92rpx;
-  border-radius: 24rpx;
-  background: var(--brand-bg);
-  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36rpx;
-  font-weight: 600;
-  margin-bottom: 10rpx;
+  margin-right: 20rpx;
 }
-.cat-name {
-  font-size: 22rpx;
-  color: var(--text2);
+.notice-main {
+  flex: 1;
+  min-width: 0;
 }
-
-.li-desc {
-  margin-top: 4rpx;
-  font-size: 24rpx;
-  color: var(--text2);
+.notice-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--text);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.press { opacity: 0.8; }
+.notice-desc {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--text3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.notice-arrow {
+  flex: none;
+  margin-left: 12rpx;
+  font-size: 40rpx;
+  color: #8FA6BF;
+}
 
-.state-box.mini { padding: 60rpx 40rpx; }
+.press { opacity: 0.8; }
