@@ -39,7 +39,9 @@ Sprint 02-07 · 编码（已完成）
 - [x] v0.1.3/v0.1.4 色调改为「雾蓝」：淡蓝页面底 + 低饱和蓝色按钮/图标 + 偏蓝冷墨文本，蓝调明显但依旧柔和
 - [x] v0.1.5 公告、便民服务暂不提供服务：两 Tab 改为统一的「敬请期待」空态（含首页公告卡片文案同步）
 - [x] v0.2.0 数据源切换为微信云函数：删除 utils/mock 演示数据层与云端回退逻辑，前端只经云函数 api 访问云数据库；云函数种子（seed.js）补齐分类/常用热线/便民服务，`init.bootstrap` 首次自动导入（管理员名单配置前允许执行，避免引导死锁）
-- [x] v0.2.1 云函数联调增强：`init.bootstrap` 内置幂等建集合（categories/services/submissions/feedbacks/adminConfig），首次运行无需手动建集合；本地校验种子分类引用/占位号码唯一性通过
+- [x] v0.2.1 云函数联调增强：`init.bootstrap` 内置幂等建集合（categories/zones/services/submissions/feedbacks/adminConfig），首次运行无需手动建集合；本地校验种子分类引用/占位号码唯一性通过
+- [x] v0.2.2 新增 zones 集合承载服务区域：`categories.list` 的 zones 改从 zones 集合动态读取（运营可配置，空/异常回退内置常量），引导自动写入默认组团「天通苑西二区」
+- [x] v0.2.3 云函数 api 按功能拆分：`index.js` 仅保留 action 分发/统一鉴权/异常兜底，业务拆入 `common.js`（云初始化+公共工具）+ `handlers/`（categories/services/submit/feedback/admin/init），行为与 14 个 action 逐一保持不变，全部语法校验通过
 
 ## 进行中
 

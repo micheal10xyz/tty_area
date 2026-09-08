@@ -6,6 +6,12 @@
  */
 const ZONE = '天通苑西二区'
 
+/* ---------- 服务区域（zones 集合种子，可按组团增删） ---------- */
+// { name, sort } 名称即服务条目 zone 字段的取值
+const ZONES_SEED = [
+  { name: ZONE, sort: 1 }
+]
+
 /* ---------- 分类目录（docId 固定） ---------- */
 const CATEGORY_SEED = [
   { _id: 'cat_repair', name: '维修安装', glyph: '修', hot: true, sort: 1 },
@@ -64,4 +70,4 @@ const ADMIN_CONFIG_SEED = {
   admins: []
 }
 
-module.exports = { ZONE, CATEGORY_SEED, HOTLINE_SEED, SERVICE_SEED, ADMIN_CONFIG_SEED }
+module.exports = { ZONE, ZONES_SEED, CATEGORY_SEED, HOTLINE_SEED, SERVICE_SEED, ADMIN_CONFIG_SEED }
