@@ -42,6 +42,8 @@ Sprint 02-07 · 编码（已完成）
 - [x] v0.2.1 云函数联调增强：`init.bootstrap` 内置幂等建集合（categories/zones/services/submissions/feedbacks/adminConfig），首次运行无需手动建集合；本地校验种子分类引用/占位号码唯一性通过
 - [x] v0.2.2 新增 zones 集合承载服务区域：`categories.list` 的 zones 改从 zones 集合动态读取（运营可配置，空/异常回退内置常量），引导自动写入默认组团「天通苑西二区」
 - [x] v0.2.3 云函数 api 按功能拆分：`index.js` 仅保留 action 分发/统一鉴权/异常兜底，业务拆入 `common.js`（云初始化+公共工具）+ `handlers/`（categories/services/submit/feedback/admin/init），行为与 14 个 action 逐一保持不变，全部语法校验通过
+- [x] v0.2.4 区域数据全量收口到云数据库：移除 common 内置 `ZONES` 常量与回退，新增 `common.listZones`/`getDefaultZone` 统一查 zones 集合；`categories.list`、`admin.approve`/`admin.batchImport`、`submit.create` 的默认区域均改从 zones 集合查询
+- [x] v0.2.5 zones 读取迁移至云托管（callContainer）：新增 `utils/zones.js` 以 `wx.cloud.callContainer` 访问云托管服务 `springboot-5k3p` 的 `GET /api/zones`，`app.js` 启动预热并写入 `globalData.zones`；`utils/config.js` 新增 `cloudEnv`/`containerService`；客户端无须再经云函数 `categories.list` 拿 zones，也无须配置 request 合法域名
 
 ## 进行中
 

@@ -4,10 +4,13 @@ App({
   globalData: {
     zone: '天通苑西二区',
     version: '0.2.0',
-    mode: 'cloud'
+    mode: 'cloud',
+    zones: []
   },
 
   onLaunch() {
     request.init()
+    const zones = require('./utils/zones')
+    zones.fetchZones()
   }
 })

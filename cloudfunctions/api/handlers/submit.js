@@ -2,7 +2,7 @@
  * 用户提交：submit.create（收录/纠错）、submit.mine（我的提交）
  * 注：本模块前端当前不再调用（v0.1.1 下线收录入口），保留供管理后台复用。
  */
-const { cloud, db, _, ok, fail, isPhoneValid, todayStart, checkText, ZONES } = require('../common')
+const { cloud, db, _, ok, fail, isPhoneValid, todayStart, checkText, getDefaultZone } = require('../common')
 
 async function submitCreate(p) {
   const openid = cloud.getWXContext().OPENID
@@ -42,7 +42,7 @@ async function submitCreate(p) {
     payload: {
       name: String(payload.name).trim().slice(0, 30),
       categoryId: payload.categoryId || '',
-      zone: payload.zone || ZONES[0],
+      zone: payload.zone || (await getDefaultZone()),
       phone: payload.phone ? String(payload.phone).trim() : '',
       address: payload.address ? String(payload.address).trim().slice(0, 60) : '',
       hours: payload.hours ? String(payload.hours).trim().slice(0, 30) : '',

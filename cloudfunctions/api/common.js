@@ -8,9 +8,6 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 const _ = db.command
 
-/** 内置默认区域（categories.list 读取 zones 集合为空/异常时的兜底值） */
-const ZONES = ['天通苑西二区']
-
 /** 超过该时长视为“待复核”（stale 标记） */
 const STALE_MS = 180 * 24 * 3600 * 1000
 
@@ -36,6 +33,22 @@ const todayStart = () => {
 }
 
 /* ---------- 数据辅助 ---------- */
+
+/** 服务区域：统一从 zones 集合读取（运营在控制台增删即可生效），异常返回空数组 */
+async function listZones() {
+  try {
+    const res = await db.collection('zones').orderBy('sort', 'asc').limit(50).get()
+    return (res.data || []).map(z => z.name).filter(Boolean)
+  } catch (e) {
+    return []
+  }
+}
+
+/** 默认区域（zones 第一条），供提交/后台新增未指定 zone 时兜底 */
+async function getDefaultZone() {
+  const zones = await listZones()
+  return zones[0] || ''
+}
 
 async function getCatMap() {
   const res = await db.collection('categories').limit(100).get()
@@ -108,7 +121,8 @@ module.exports = {
   cloud,
   db,
   _,
-  ZONES,
+  listZones,
+  getDefaultZone,
   SERVICE_STATUS,
   ok,
   fail,

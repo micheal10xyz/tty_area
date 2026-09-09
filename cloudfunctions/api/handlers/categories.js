@@ -1,18 +1,7 @@
 /**
  * 分类与首页聚合：categories.list
  */
-const { db, ok, ZONES, fetchPublished } = require('../common')
-
-/** 服务区域列表：优先读 zones 集合（运营可配置），空/异常时回退内置常量 */
-async function listZones() {
-  try {
-    const res = await db.collection('zones').orderBy('sort', 'asc').limit(50).get()
-    const names = (res.data || []).map(z => z.name).filter(Boolean)
-    return names.length ? names : ZONES
-  } catch (e) {
-    return ZONES
-  }
-}
+const { db, ok, listZones, fetchPublished } = require('../common')
 
 async function categoriesList() {
   const catRes = await db.collection('categories').orderBy('sort', 'asc').limit(100).get()

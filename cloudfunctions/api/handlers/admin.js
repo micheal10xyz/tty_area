@@ -2,7 +2,7 @@
  * 管理审核与数据维护：admin.pendingList / approve / reject / offline / fix / batchImport
  * 鉴权由入口 index.js 统一完成，本模块不重复校验。
  */
-const { db, _, ok, fail, ZONES, SERVICE_STATUS } = require('../common')
+const { db, _, ok, fail, getDefaultZone, SERVICE_STATUS } = require('../common')
 
 async function loadSubmission(id) {
   try {
@@ -40,7 +40,7 @@ async function adminApprove(p) {
     const addRes = await db.collection('services').add({
       data: {
         name: payload.name, type: 'service', categoryId: payload.categoryId,
-        zone: payload.zone || ZONES[0], phone: payload.phone,
+        zone: payload.zone || (await getDefaultZone()), phone: payload.phone,
         address: payload.address || '', hours: payload.hours || '', desc: payload.desc || '',
         tags: [], auditStatus: 'published', callCount: 0, reviewedAt: now,
         source: 'user', submitId: sub._id, hot: false, sort: 999,
@@ -122,6 +122,7 @@ async function adminBatchImport(p) {
   const list = Array.isArray(p.list) ? p.list.slice(0, 500) : []
   if (!list.length) return fail(40001, '空列表')
   const now = Date.now()
+  const defaultZone = await getDefaultZone()
   let okCount = 0
   for (const item of list) {
     if (!item.name || !item.phone) continue
@@ -131,7 +132,7 @@ async function adminBatchImport(p) {
         glyph: String(item.glyph || String(item.name).slice(0, 1)),
         type: item.type === 'hotline' ? 'hotline' : 'service',
         categoryId: item.categoryId || '',
-        zone: item.zone || ZONES[0],
+        zone: item.zone || defaultZone,
         phone: String(item.phone),
         address: String(item.address || '').slice(0, 60),
         hours: String(item.hours || '').slice(0, 30),

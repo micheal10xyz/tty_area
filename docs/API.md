@@ -186,3 +186,56 @@ if (res.result.code !== 0) { /* 按错误码提示 */ }
 ```
 
 - 错误码→用户提示映射：40001/40401 通用提示；40302「今日提交已达上限」；41001「内容不合规，请修改后重试」；40101「登录状态异常，请重试」。
+
+---
+
+## 6. 云托管 HTTP 接口（zones 等只读数据）
+
+`api` 云函数仍承担所有动作型接口（提交、审核、初始化、拨打计数等）；只读且变更不频繁的资源（如服务区域 `zones`）逐步迁移到「微信云开发 · 云托管」容器，**由前端通过 `wx.cloud.callContainer` 调用**，不再经云函数。
+
+### 6.1 GET /api/zones（无需登录）
+
+- **用途**：获取服务区域列表。替代 `categories.list` 响应里附带的 `zones` 字段。
+- **宿主**：云托管服务 `springboot-5k3p`，由其内部读取云数据库 zones 集合（或自有数据库）。
+- **客户端配置**（`utils/config.js`）：
+
+  | 项 | 值 |
+  | -- | -- |
+  | `cloudEnv` | 云开发环境 ID（`wx.cloud.callContainer` 需要确定的环境，建议填写实际 envId） |
+  | `containerService` | 云托管服务名：`springboot-5k3p` |
+
+  callContainer 走云开发通道，**无需**在小程序后台配置 request 合法域名；前提是目标云托管服务已允许被调用（云托管 → 服务设置 → 访问方式）。请求由云开发自动注入 `X-WX-OPENID` 等上下文头。
+
+- **请求**：`GET /api/zones`（path），经 `wx.cloud.callContainer` 访问云托管服务 `{containerService}`，无 query、无 body。
+- **响应**（统一信封，与 `api` 云函数一致）：
+
+  ```json
+  { "code": 0, "message": "ok", "data": ["天通苑西二区", "西二区东院"] }
+  ```
+
+  或直接数组形式（兼容）：
+
+  ```json
+  ["天通苑西二区"]
+  ```
+
+- **异常**：`{ code: 50000, message: "服务繁忙" }`；容器调用失败（多因 `cloudEnv`/`containerService` 配置不符、或服务未开放被调用）→ 「请核对 config.cloudEnv 与 containerService，并确认云托管服务已允许被调用」。
+
+### 6.2 客户端调用
+
+启动时 `app.js#onLaunch` 已调用 `zones.fetchZones()` 预热，结果缓存到 `globalData.zones`。任意页面直接：
+
+```js
+const zones = require('../../utils/zones')
+// 同步读取已缓存
+const list = zones.getCachedZones()
+// 主动拉取（覆盖缓存）
+zones.fetchZones().then(res => {
+  if (res.code === 0) console.log(res.data)
+})
+```
+
+### 6.3 与云函数的关系
+
+- `categories.list` 响应里的 `zones` 字段将逐步停用，迁移完成后从接口响应中移除。
+- 写入操作（admin 新增组团、批量导入）仍走云函数 `admin.*` 动作，避免在前端直接操作数据库。
