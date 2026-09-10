@@ -1,14 +1,38 @@
 /**
- * 区域列表（云托管 /api/zones）调用适配层
- * - 通过 wx.cloud.callContainer 访问「微信云托管」容器（服务名见 utils/config.js#containerService），
- *   不再经云函数 categories.list 附带 zones，也不依赖 request 合法域名配置
- * - 启动时 app.js 会预热一次，结果写入 globalData.zones 供各页面直接消费
+ * 区域列表适配层
+ *
+ * - 默认（USE_CLOUD = false）：读取 utils/local-data.js 的本地配置，
+ *   离线/联调时无需依赖云端，启动预热逻辑不变。
+ * - 切回云端：把 USE_CLOUD 改为 true，即恢复经 wx.cloud.callContainer
+ *   访问云托管服务（服务名见 utils/config.js#containerService）的 GET /api/zones。
+ *
+ * 对外接口 fetchZones() / getCachedZones() 保持不变，app.js 与页面无需改动。
  */
 const CONFIG = require('./config')
+const DATA = require('./local-data')
+
+/** true = 走云托管 /api/zones；false = 使用本地配置 */
+const USE_CLOUD = false
 
 function getApp() {
   return typeof globalThis !== 'undefined' && globalThis.getApp ? globalThis.getApp() : null
 }
+
+/** 写入 globalData 缓存，供 getCachedZones 同步读取 */
+function applyCache(list) {
+  const app = getApp()
+  if (app && app.globalData) app.globalData.zones = list
+}
+
+/* ---------- 本地配置实现 ---------- */
+
+function localZones() {
+  const list = DATA.ZONES.slice()
+  applyCache(list)
+  return Promise.resolve({ code: 0, message: 'ok', data: list })
+}
+
+/* ---------- 云托管实现（保留备用） ---------- */
 
 function pickList(body) {
   if (Array.isArray(body)) return body
@@ -23,7 +47,7 @@ function normalize(res) {
   return res
 }
 
-function fetchZones() {
+function cloudZones() {
   if (!wx.cloud) {
     return Promise.resolve({ code: 50000, message: '当前基础库不支持云开发', data: [] })
   }
@@ -47,8 +71,7 @@ function fetchZones() {
         const body = normalize(res.data)
         if (body.code !== 0) return resolve(Object.assign({}, body, { data: [] }))
         const list = pickList(body.data).filter(Boolean)
-        const app = getApp()
-        if (app && app.globalData) app.globalData.zones = list
+        applyCache(list)
         resolve({ code: 0, message: 'ok', data: list })
       },
       fail: err => {
@@ -61,6 +84,12 @@ function fetchZones() {
       }
     })
   })
+}
+
+/* ---------- 对外接口 ---------- */
+
+function fetchZones() {
+  return USE_CLOUD ? cloudZones() : localZones()
 }
 
 function getCachedZones() {

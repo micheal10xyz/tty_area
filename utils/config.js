@@ -14,5 +14,5 @@ module.exports = {
   zone: '天通苑西二区',
   pageSize: 20,
   version: '0.2.0',
-  containerService: 'springboot-5k3p'
+  containerService: 'springboot-5k3p-004'
 }
