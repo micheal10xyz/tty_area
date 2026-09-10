@@ -2,22 +2,32 @@ const request = require('../../utils/request')
 const phone = require('../../utils/phone')
 const CONFIG = require('../../utils/config')
 
+/** 已选小区的本地缓存键（与 pages/zone/zone 共用） */
+const ZONE_KEY = 'tty_zone'
+
 Page({
   data: {
     zone: CONFIG.zone,
     mode: '',
     loading: true,
     error: false,
-    hotlines: []
+    hotlines: [],
+    notices: []
   },
 
   onLoad() {
+    const saved = wx.getStorageSync(ZONE_KEY)
+    if (saved) this.setData({ zone: saved })
     this.load()
   },
 
   onShow() {
+    // 从小区页返回后可能已切换小区
+    const saved = wx.getStorageSync(ZONE_KEY)
+    const zoneChanged = !!saved && saved !== this.data.zone
+    if (zoneChanged) this.setData({ zone: saved })
     // 从其它 Tab 切回时静默刷新，避免公告/热线过期
-    if (this._shown) this.load(true)
+    if (this._shown || zoneChanged) this.load(true)
     this._shown = true
     this.syncTab()
   },
@@ -33,17 +43,20 @@ Page({
   },
 
   load(isRefresh) {
-    request.call('categories.list', {}).then(res => {
-      if (res.code !== 0) {
-        this.setData({ loading: false, error: true })
-        if (isRefresh) wx.stopPullDownRefresh()
-        return
-      }
+    // 首页主体（常用热线）与小区动态并发拉取；动态失败不阻塞主内容
+    Promise.all([
+      request.call('categories.list', {}),
+      request.call('notice.list', { limit: 3 })
+    ]).then(res => {
+      const cat = res[0] || {}
+      const notice = res[1] || {}
+      const catOk = cat.code === 0
       this.setData({
         loading: false,
-        error: false,
+        error: !catOk,
         mode: request.getMode(),
-        hotlines: res.data.hotlines || []
+        hotlines: catOk ? (cat.data.hotlines || []) : [],
+        notices: (notice.code === 0 && notice.data && notice.data.list) || []
       })
       if (isRefresh) wx.stopPullDownRefresh()
     }).catch(() => {
@@ -57,6 +70,10 @@ Page({
   },
 
   /* ---------- 跳转 ---------- */
+  goZonePicker() {
+    wx.navigateTo({ url: '/pages/zone/zone' })
+  },
+
   goSearch() {
     wx.navigateTo({ url: '/pages/list/list?type=search&title=' + encodeURIComponent('搜索服务') })
   },

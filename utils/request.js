@@ -78,7 +78,7 @@ function categoriesList() {
   const hot = fetchPublished({ type: 'hotline' }).sort((a, b) => (a.sort || 0) - (b.sort || 0))
   return ok({
     categories: cats,
-    hotlines: hot.slice(0, 8).map(h => ({
+    hotlines: hot.slice(0, 6).map(h => ({
       _id: h._id,
       name: h.name,
       glyph: h.glyph || String(h.name || '').slice(0, 1),
@@ -87,6 +87,26 @@ function categoriesList() {
       hours: h.hours
     })),
     zones: DATA.ZONES.slice()
+  })
+}
+
+/** notice.list：社区公告列表（置顶优先，按发布时间倒序） */
+function noticeList(p) {
+  const params = p || {}
+  const limit = Math.min(20, Math.max(1, Number(params.limit) || 5))
+  const ts = (v) => { const t = new Date(v).getTime(); return isNaN(t) ? 0 : t }
+  const list = DATA.NOTICES
+    .filter(n => n.auditStatus === 'published' && !n.isDeleted)
+    .slice()
+    .sort((a, b) => {
+      if (!!a.top !== !!b.top) return a.top ? -1 : 1
+      return ts(b.publishAt) - ts(a.publishAt)
+    })
+  return ok({
+    list: list.slice(0, limit).map(n => Object.assign({}, n, {
+      dateText: format.formatDate(n.publishAt).slice(5)
+    })),
+    hasMore: list.length > limit
   })
 }
 
@@ -163,6 +183,7 @@ function feedbackCreate() {
 
 const HANDLERS = {
   'categories.list': categoriesList,
+  'notice.list': noticeList,
   'service.list': serviceList,
   'service.detail': serviceDetail,
   'call.record': callRecord,

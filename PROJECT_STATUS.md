@@ -44,6 +44,7 @@ Sprint 02-07 · 编码（已完成）
 - [x] v0.2.3 云函数 api 按功能拆分：`index.js` 仅保留 action 分发/统一鉴权/异常兜底，业务拆入 `common.js`（云初始化+公共工具）+ `handlers/`（categories/services/submit/feedback/admin/init），行为与 14 个 action 逐一保持不变，全部语法校验通过
 - [x] v0.2.4 区域数据全量收口到云数据库：移除 common 内置 `ZONES` 常量与回退，新增 `common.listZones`/`getDefaultZone` 统一查 zones 集合；`categories.list`、`admin.approve`/`admin.batchImport`、`submit.create` 的默认区域均改从 zones 集合查询
 - [x] v0.2.5 zones 读取迁移至云托管（callContainer）：新增 `utils/zones.js` 以 `wx.cloud.callContainer` 访问云托管服务 `springboot-5k3p` 的 `GET /api/zones`，`app.js` 启动预热并写入 `globalData.zones`；`utils/config.js` 新增 `cloudEnv`/`containerService`；客户端无须再经云函数 `categories.list` 拿 zones，也无须配置 request 合法域名
+- [x] v0.2.6 首页信息密度与视觉重构：常用热线精简为 6 个入口（其余走「查看全部」进列表页）；「公告速递」升级为「小区动态」最新公告列表，新增 `notices` 数据源与 `notice.list` 接口，公告 Tab 页同步接入真实数据（不再「敬请期待」）；分区卡片统一为白底 + 轻阴影，图标改浅色底描边、文字分三级，去除大面积蓝块与高饱和实心图标
 
 ## 进行中
 

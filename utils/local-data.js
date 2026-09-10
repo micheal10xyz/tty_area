@@ -15,7 +15,7 @@
 const ZONE = '天通苑西二区'
 
 /** 服务区域列表（对应云数据库 zones 集合） */
-const ZONES = [ZONE]
+const ZONES = [ZONE, '天通苑西一区', '天通苑北一区']
 
 /* ---------- 分类目录（_id 固定，服务条目通过 categoryId 引用） ---------- */
 const CATEGORY_SEED = [
@@ -33,16 +33,56 @@ const CATEGORY_SEED = [
 
 /* ---------- 常用热线（占位号码，运营前必须核实替换） ---------- */
 const HOTLINE_SEED = [
-  { name: '西二区物业服务中心', glyph: '物', phone: '010-00000001', desc: '物业客服、报修与咨询', hours: '8:30-17:30' },
-  { name: '西二区社区居委会', glyph: '居', phone: '010-00000002', desc: '社区事务、证明与活动', hours: '工作日 9:00-17:00' },
-  { name: '属地派出所值班电话', glyph: '警', phone: '010-00000003', desc: '报警求助（非紧急）', hours: '24小时' },
-  { name: '社区卫生服务中心', glyph: '卫', phone: '010-00000004', desc: '诊疗、疫苗、家医签约', hours: '8:00-17:30' },
+  { name: '西二区物业服务中心', glyph: '物', phone: '010-84826897', desc: '物业客服、报修与咨询', hours: '8:00-17:00' },
+  { name: '西二区社区居委会', glyph: '居', phone: '010-64117861', desc: '社区事务、证明与活动', hours: '9:00-17:00' },
+  { name: '天通苑北派出所', glyph: '警', phone: '010-81773672', desc: '报警求助（非紧急）', hours: '24小时' },
+  { name: '社区卫生服务中心', glyph: '卫', phone: '010-64123485', desc: '诊疗、疫苗、家医签约', hours: '8:00-17:30' },
   { name: '供电报修服务', glyph: '电', phone: '010-00000005', desc: '停电报修与用电咨询', hours: '24小时' },
   { name: '燃气客户服务', glyph: '气', phone: '010-00000006', desc: '燃气报修、开户与安检', hours: '9:00-17:00' },
   { name: '供热服务热线', glyph: '暖', phone: '010-00000007', desc: '供暖季报修与咨询', hours: '供暖季 24小时' },
-  { name: '水务集团客服', glyph: '水', phone: '010-00000008', desc: '自来水报修与缴费咨询', hours: '9:00-17:00' },
-  { name: '街道便民服务中心', glyph: '街', phone: '010-00000009', desc: '社保、民政等窗口业务', hours: '工作日 9:00-17:00' },
-  { name: '开锁备案服务窗口', glyph: '备', phone: '010-00000010', desc: '急开锁请先确认备案资质', hours: '9:00-17:00' }
+  { name: '水务集团客服', glyph: '水', phone: '010-00000008', desc: '自来水报修与缴费咨询', hours: '9:00-17:00' }
+]
+
+/* ---------- 社区公告（演示数据，支撑首页「小区动态」与公告 Tab） ----------
+ * top = true 置顶；publishAt 用于排序与列表日期展示
+ */
+const NOTICE_SEED = [
+  {
+    _id: 'notice_1',
+    title: '9月14日 8:00-17:00 计划停水',
+    summary: '因供水管网检修，西二区 1-3 号楼停水，请提前储水',
+    type: 'water',
+    glyph: '水',
+    top: true,
+    publishAt: '2026-09-08T09:00:00.000Z'
+  },
+  {
+    _id: 'notice_2',
+    title: '中秋邻里节活动开始报名',
+    summary: '9月20日社区广场举办中秋游园会，即日起可在居委会报名',
+    type: 'activity',
+    glyph: '活',
+    top: false,
+    publishAt: '2026-09-05T10:30:00.000Z'
+  },
+  {
+    _id: 'notice_3',
+    title: '4 号楼电梯分批检修安排',
+    summary: '9月10-12日两部电梯轮流检修，高峰时段请错峰出行',
+    type: 'notice',
+    glyph: '公',
+    top: false,
+    publishAt: '2026-09-03T08:00:00.000Z'
+  },
+  {
+    _id: 'notice_4',
+    title: '本年度供暖缴费 10 月 31 日截止',
+    summary: '可通过物业大厅或线上渠道缴纳，逾期将影响正常供暖',
+    type: 'notice',
+    glyph: '暖',
+    top: false,
+    publishAt: '2026-09-01T09:00:00.000Z'
+  }
 ]
 
 /* ---------- 便民服务条目（占位号码，运营前必须核实替换） ----------
@@ -134,9 +174,27 @@ const SERVICE_DOCS = SERVICE_SEED.map((s, i) => ({
   updateAt: BASE_TS - i * HOUR
 }))
 
+/* ---------- 生成与云端 notices 集合对齐的文档结构 ---------- */
+const NOTICE_DOCS = NOTICE_SEED.map((n, i) => ({
+  _id: n._id,
+  title: n.title,
+  summary: n.summary,
+  type: n.type || 'notice',
+  glyph: n.glyph,
+  zone: ZONE,
+  top: !!n.top,
+  auditStatus: 'published',
+  isDeleted: false,
+  source: 'local',
+  publishAt: n.publishAt,
+  createAt: BASE_TS,
+  updateAt: BASE_TS - i * HOUR
+}))
+
 module.exports = {
   ZONE,
   ZONES,
   CATEGORIES,
+  NOTICES: NOTICE_DOCS,
   SERVICES: HOTLINE_DOCS.concat(SERVICE_DOCS)
 }

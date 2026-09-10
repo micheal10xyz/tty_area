@@ -7,7 +7,8 @@
     "pages/detail/detail",
     "pages/profile/profile",
     "pages/feedback/feedback",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/zone/zone"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -23,7 +24,7 @@
     "list": [
       { "pagePath": "pages/home/home", "text": "首页" },
       { "pagePath": "pages/notice/notice", "text": "公告" },
-      { "pagePath": "pages/services/services", "text": "便民" },
+      { "pagePath": "pages/services/services", "text": "服务" },
       { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   },

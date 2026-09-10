@@ -5,3 +5,66 @@
 .notice .state-box {
   padding-top: 220rpx;
 }
+
+/* 公告列表：白卡片 + 浅色标签，与首页「小区动态」视觉统一 */
+.notice-list {
+  padding: 8rpx 24rpx 0;
+}
+.notice-item {
+  display: flex;
+  align-items: flex-start;
+  background: var(--card);
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(54, 72, 92, 0.04);
+}
+.notice-tag {
+  flex: none;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: #F1F6FC;
+  border: 1rpx solid #E2EBF7;
+  color: var(--primary);
+  font-size: 28rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+.notice-main {
+  flex: 1;
+  min-width: 0;
+}
+.notice-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+.notice-top {
+  display: inline-block;
+  margin-left: 10rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+  font-weight: 400;
+  color: var(--primary);
+  background: var(--brand-bg);
+  vertical-align: middle;
+}
+.notice-summary {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.notice-date {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: var(--text3);
+}
+
+.press { opacity: 0.8; }

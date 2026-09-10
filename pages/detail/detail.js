@@ -61,7 +61,7 @@ Page({
   onShareAppMessage() {
     const s = this.data.service
     return {
-      title: (s ? s.name : '天通苑便民服务') + ' - 天通苑便民',
+      title: (s ? s.name : '小区事先知服务') + ' - 小区事先知',
       path: '/pages/detail/detail?id=' + this.id
     }
   }

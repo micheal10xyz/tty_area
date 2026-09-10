@@ -2,9 +2,39 @@
 </navigation-bar>
 
 <view class="page notice">
-  <view class="state-box">
+
+  <!-- Loading -->
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+  </view>
+
+  <!-- 错误 -->
+  <view wx:elif="{{error}}" class="state-box">
+    <view class="state-icon">!</view>
+    <view class="state-title">加载失败</view>
+    <view class="state-desc">请检查网络后重试</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="retry">重新加载</button>
+  </view>
+
+  <!-- 公告列表 -->
+  <view wx:elif="{{list.length}}" class="notice-list">
+    <view wx:for="{{list}}" wx:key="_id" class="notice-item" hover-class="press">
+      <view class="notice-tag">{{item.glyph}}</view>
+      <view class="notice-main">
+        <view class="notice-name">
+          {{item.title}}
+          <text wx:if="{{item.top}}" class="notice-top">置顶</text>
+        </view>
+        <view class="notice-summary">{{item.summary}}</view>
+        <view class="notice-date">{{item.dateText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view wx:else class="state-box">
     <view class="state-icon">告</view>
-    <view class="state-title">敬请期待</view>
-    <view class="state-desc">社区公告正在筹备中，后续将发布停水停电、社区活动等通知</view>
+    <view class="state-title">暂无公告</view>
+    <view class="state-desc">停水停电、社区活动等通知将在此发布</view>
   </view>
 </view>

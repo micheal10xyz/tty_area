@@ -7,7 +7,7 @@ Page({
 
   onShareAppMessage() {
     return {
-      title: '天通苑便民 · 本地服务黄页',
+      title: '小区事先知 · 本地服务黄页',
       path: '/pages/home/home'
     }
   }

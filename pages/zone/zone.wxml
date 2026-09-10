@@ -1,0 +1,29 @@
+<navigation-bar background="#FFFFFF" color="#36485C" title="选择小区" back="{{true}}"></navigation-bar>
+
+<view class="page zone-page">
+
+  <view wx:if="{{loading}}" class="state-box">
+    <view class="state-title">加载中…</view>
+  </view>
+
+  <view wx:elif="{{error}}" class="state-box">
+    <view class="state-icon">!</view>
+    <view class="state-title">加载失败</view>
+    <view class="state-desc">请检查网络后重试</view>
+    <button class="btn btn-primary btn-sm" hover-class="btn-press" bindtap="retry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="zone-tip">切换后，首页与列表将按所选小区展示服务</view>
+
+    <view class="zone-list">
+      <view wx:for="{{zones}}" wx:key="*this"
+            class="zone-row {{item === zone ? 'active' : ''}} {{index === zones.length - 1 ? 'last' : ''}}"
+            hover-class="press" data-name="{{item}}" bindtap="pickZone">
+        <view class="zone-pin"></view>
+        <text class="zone-name">{{item}}</text>
+        <text wx:if="{{item === zone}}" class="zone-badge">当前</text>
+      </view>
+    </view>
+  </block>
+</view>

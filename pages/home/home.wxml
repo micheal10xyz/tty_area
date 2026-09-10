@@ -1,6 +1,4 @@
-<navigation-bar background="#FFFFFF" color="#36485C" title="" back="{{false}}">
-  <view slot="center" style="font-size:34rpx;font-weight:600;color:#36485C;">天通苑便民</view>
-</navigation-bar>
+<navigation-bar background="#EFF4FB" color="#36485C" back="{{false}}"></navigation-bar>
 
 <view class="page home">
 
@@ -21,23 +19,25 @@
   </block>
 
   <block wx:else>
-    <!-- 位置与模式 -->
-    <view class="loc-bar">
-      <view class="loc-dot"></view>
-      <text class="loc-text">{{zone}}</text>
+    <!-- 顶部：当前小区 + 搜索（搜索框为首屏视觉重点） -->
+    <view class="top-area">
+      <view class="loc-picker" hover-class="loc-picker-press" bindtap="goZonePicker">
+        <view class="loc-pin"></view>
+        <text class="loc-text">{{zone}}</text>
+        <text class="loc-arrow">›</text>
+      </view>
+
+      <view class="search-box" hover-class="search-press" bindtap="goSearch">
+        <view class="search-icon"></view>
+        <text class="search-ph">搜服务，如：开锁、疏通</text>
+      </view>
     </view>
 
-    <!-- 搜索 -->
-    <view class="search-box" bindtap="goSearch">
-      <view class="search-icon"></view>
-      <text class="search-ph">搜服务，如：开锁、疏通</text>
-    </view>
-
-    <!-- 常用热线 -->
-    <view class="hotline-card">
-      <view class="hotline-head">
-        <view class="hotline-title">常用热线</view>
-        <text class="sec-more" bindtap="goAllHotline">查看全部</text>
+    <!-- 常用热线：首页只放 6 个最常用入口，其余走「查看全部」 -->
+    <view class="panel">
+      <view class="panel-head">
+        <view class="panel-title">常用热线</view>
+        <text class="panel-more" bindtap="goAllHotline">查看全部 ›</text>
       </view>
       <view class="hot-grid">
         <view wx:for="{{hotlines}}" wx:key="_id" class="hot-item" hover-class="press"
@@ -48,16 +48,32 @@
       </view>
     </view>
 
-    <!-- 公告速递 -->
-    <view class="card notice-card" hover-class="press" bindtap="goNotice">
-      <view class="notice-left">
-        <view class="notice-icon">告</view>
-        <view class="notice-main">
-          <view class="notice-title">公告速递 · 敬请期待</view>
-          <view class="notice-desc">停水停电、物业与社区活动等通知将在此发布</view>
+    <!-- 小区动态：展示最新公告，点条目或「全部公告」进入公告 Tab -->
+    <view class="panel">
+      <view class="panel-head">
+        <view class="panel-title">小区动态</view>
+        <text class="panel-more" bindtap="goNotice">全部公告 ›</text>
+      </view>
+      <view wx:if="{{notices.length}}" class="dyn-list">
+        <view wx:for="{{notices}}" wx:key="_id" class="dyn-item" hover-class="press" bindtap="goNotice">
+          <view class="dyn-tag">{{item.glyph}}</view>
+          <view class="dyn-main">
+            <view class="dyn-name">{{item.title}}</view>
+            <view class="dyn-sub">{{item.summary}}</view>
+          </view>
+          <text class="dyn-date">{{item.dateText}}</text>
         </view>
       </view>
-      <view class="notice-arrow">›</view>
+      <view wx:else class="dyn-empty">暂无最新公告</view>
+    </view>
+
+    <!-- 服务承诺（轻量提示，填补首屏下半部空白） -->
+    <view class="commit-card">
+      <view class="commit-icon">i</view>
+      <view class="commit-main">
+        <view class="commit-title">号码可能变化，拨打前请先核实</view>
+        <view class="commit-desc">如有错误，欢迎在「我的 · 意见反馈」中告诉我们</view>
+      </view>
     </view>
   </block>
 </view>

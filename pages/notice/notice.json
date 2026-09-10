@@ -1,3 +1,5 @@
 {
-  "enableShareAppMessage": true
+  "enableShareAppMessage": true,
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

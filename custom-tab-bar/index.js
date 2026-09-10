@@ -4,7 +4,7 @@ Component({
     list: [
       { pagePath: '/pages/home/home', text: '首页', icon: 'home' },
       { pagePath: '/pages/notice/notice', text: '公告', icon: 'notice' },
-      { pagePath: '/pages/services/services', text: '便民', icon: 'services' },
+      { pagePath: '/pages/services/services', text: '服务', icon: 'services' },
       { pagePath: '/pages/profile/profile', text: '我的', icon: 'mine' }
     ]
   },

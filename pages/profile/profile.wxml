@@ -29,6 +29,6 @@
   </view>
 
   <view class="meta">
-    <text>天通苑便民 v{{version}}</text>
+    <text>小区事先知 v{{version}}</text>
   </view>
 </view>

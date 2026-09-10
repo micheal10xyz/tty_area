@@ -1,6 +1,7 @@
 <view class="tab-bar">
   <view class="tab-item {{selected === index ? 'on' : ''}}" wx:for="{{list}}" wx:key="pagePath"
         data-index="{{index}}" bindtap="onTab">
+    <view class="tab-ind"></view>
     <view class="tab-ic">
       <block wx:if="{{item.icon === 'home'}}">
         <view class="i-home">
@@ -12,6 +13,7 @@
         <view class="i-notice">
           <view class="n-knob"></view>
           <view class="n-dome"></view>
+          <view class="n-base"></view>
           <view class="n-clap"></view>
         </view>
       </block>
