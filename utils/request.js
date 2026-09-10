@@ -29,7 +29,7 @@ function init() {
   }
 }
 
-/** 数据来源标识：本地配置 = demo，首页据此展示「演示数据」标签 */
+/** 数据来源标识：本地配置 = demo，云端 = cloud（仅供页面记录，不做 UI 展示） */
 function getMode() {
   return ready ? 'demo' : 'pending'
 }

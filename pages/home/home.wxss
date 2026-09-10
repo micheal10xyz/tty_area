@@ -36,14 +36,6 @@
   font-weight: 500;
   color: var(--text);
 }
-.mode-tag {
-  margin-left: 16rpx;
-  font-size: 20rpx;
-  color: var(--text3);
-  border: 1rpx solid var(--line);
-  border-radius: 8rpx;
-  padding: 0 10rpx;
-}
 
 /* 搜索 */
 .search-box {

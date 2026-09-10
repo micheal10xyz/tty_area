@@ -25,7 +25,6 @@
     <view class="loc-bar">
       <view class="loc-dot"></view>
       <text class="loc-text">{{zone}}</text>
-      <text wx:if="{{mode === 'demo'}}" class="mode-tag">演示数据</text>
     </view>
 
     <!-- 搜索 -->
